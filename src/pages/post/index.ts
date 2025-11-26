@@ -1,0 +1,2 @@
+export { PostPage } from './detail';
+
