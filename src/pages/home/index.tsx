@@ -1,39 +1,39 @@
+import { useEffect, useState } from "react";
 import { Layout } from "@/shared/layout";
 import { BlogPostList } from "@/features/blog-post-list";
 import { BlogPostListItem } from "@/entities/blog-post";
-
-// 임시 데이터 - 나중에 실제 데이터로 교체
-const mockPosts: BlogPostListItem[] = [
-  {
-    id: "1",
-    title: "React Hooks 완벽 가이드",
-    excerpt:
-      "React Hooks의 기본 개념부터 고급 사용법까지 알아봅니다. useState, useEffect, useContext 등 주요 Hook들을 실전 예제와 함께 설명합니다.",
-    createdAt: "2024-11-26",
-    tags: ["React", "Hooks", "Frontend"],
-    category: "React",
-  },
-  {
-    id: "2",
-    title: "TypeScript 타입 시스템 이해하기",
-    excerpt:
-      "TypeScript의 타입 시스템을 깊이 있게 다룹니다. 제네릭, 유니온 타입, 타입 가드 등 고급 타입 기능들을 학습합니다.",
-    createdAt: "2024-11-25",
-    tags: ["TypeScript", "Programming"],
-    category: "TypeScript",
-  },
-  {
-    id: "3",
-    title: "Vite로 빠른 개발 환경 구축하기",
-    excerpt:
-      "Vite를 사용하여 현대적인 프론트엔드 개발 환경을 만들어봅니다. 빠른 HMR과 최적화된 빌드 프로세스를 경험해보세요.",
-    createdAt: "2024-11-24",
-    tags: ["Vite", "Build Tool", "Frontend"],
-    category: "Tooling",
-  },
-];
+import { getAllPosts, toListItem } from "@/shared/lib/markdown";
 
 export const HomePage = () => {
+  const [posts, setPosts] = useState<BlogPostListItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    try {
+      const allPosts = getAllPosts();
+      const postListItems = allPosts.map(toListItem);
+      setPosts(postListItems);
+    } catch (error) {
+      console.error('Failed to load posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="py-12 sm:py-16 lg:py-20">
+          <div className="px-4 mx-auto max-w-4xl sm:px-6 lg:px-8">
+            <div className="text-center">
+              <p className="text-gray-600">포스트를 불러오는 중...</p>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="py-12 sm:py-16 lg:py-20">
@@ -43,7 +43,7 @@ export const HomePage = () => {
             <h2 className="mb-8 text-2xl font-semibold text-gray-800">
               최근 포스트
             </h2>
-            <BlogPostList posts={mockPosts} />
+            <BlogPostList posts={posts} />
           </div>
         </div>
       </div>
