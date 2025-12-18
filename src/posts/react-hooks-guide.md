@@ -1,13 +1,13 @@
 ---
 id: '1'
-title: 'React Hooks 완벽 가이드'
+title: 'React Hooks 가이드'
 excerpt: 'React Hooks의 기본 개념부터 고급 사용법까지 알아봅니다.'
 createdAt: '2025-11-26'
 tags: ['React', 'Hooks', 'Frontend']
 category: 'React'
 ---
 
-# React Hooks 완벽 가이드
+# React Hooks 가이드
 
 React Hooks는 함수형 컴포넌트에서 상태 관리와 생명주기 기능을 사용할 수 있게 해주는 기능입니다.
 
