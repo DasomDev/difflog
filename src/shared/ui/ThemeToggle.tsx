@@ -5,19 +5,11 @@ export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark")
-    } else if (theme === "dark") {
-      setTheme("system")
-    } else {
-      setTheme("light")
-    }
+    setTheme(theme === "light" ? "dark" : "light")
   }
 
   const getIcon = () => {
-    if (theme === "light") return <Sun className="w-5 h-5" />
-    if (theme === "dark") return <Moon className="w-5 h-5" />
-    return <Sun className="w-5 h-5" />
+    return theme === "light" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />
   }
 
   return (
