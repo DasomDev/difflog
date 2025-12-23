@@ -4,7 +4,7 @@ import { ThemeToggle } from "./ThemeToggle";
 export const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b shadow-sm backdrop-blur-md border-orange-100/50 dark:border-orange-900/50 bg-white/70 dark:bg-gray-900/70">
-      <div className="px-4 py-5 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="px-4 py-5 mx-auto max-w-4xl sm:px-6 lg:px-8">
         <nav className="flex justify-between items-center">
           <Link
             to="/"
