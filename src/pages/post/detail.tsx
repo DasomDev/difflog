@@ -74,7 +74,7 @@ export const PostPage = () => {
   return (
     <Layout>
       <div className="py-8 sm:py-12 lg:py-16">
-        <div className="px-4 mx-auto max-w-3xl sm:px-6 lg:px-8">
+        <div className="px-4 mx-auto max-w-4xl sm:px-6 lg:px-8">
           <Link
             to="/"
             className="inline-flex gap-2 items-center mb-8 text-gray-600 transition-colors dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 group"

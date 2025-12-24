@@ -10,9 +10,9 @@ export const Header = () => {
             to="/"
             className="flex gap-2 items-center text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600 transition-all duration-300 dark:from-orange-400 dark:to-amber-400 hover:from-orange-500 hover:to-amber-500"
           >
-            <span className="hidden sm:inline">diffLog</span>
-            <span className="sm:hidden">기록</span>
+            <span className="sm:inline">diffLog</span>
           </Link>
+          <Link to="/playground" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">playground</Link>
           <ThemeToggle />
         </nav>
       </div>
