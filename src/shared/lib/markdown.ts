@@ -29,8 +29,12 @@ const parseFrontmatter = (content: string): { data: Record<string, any>; content
       value = value.slice(1, -1);
     }
     
+    // boolean 파싱
+    if (value === 'true' || value === 'false') {
+      data[key] = value === 'true';
+    }
     // 배열 파싱
-    if (value.startsWith('[') && value.endsWith(']')) {
+    else if (value.startsWith('[') && value.endsWith(']')) {
       const arrayContent = value.slice(1, -1);
       data[key] = arrayContent
         .split(',')
@@ -57,6 +61,7 @@ export const parseMarkdown = (content: string, filename: string): BlogPost => {
     updatedAt: data.updatedAt,
     tags: data.tags || [],
     category: data.category,
+    published: data.published !== undefined ? data.published : true, // 기본값은 true (기존 글 호환성)
   };
 };
 
@@ -69,11 +74,12 @@ export const toListItem = (post: BlogPost): BlogPostListItem => {
     createdAt: post.createdAt,
     tags: post.tags,
     category: post.category,
+    published: post.published,
   };
 };
 
 // 모든 포스트를 가져오기 (Vite의 import.meta.glob 사용)
-export const getAllPosts = (): BlogPost[] => {
+export const getAllPosts = (includeDrafts: boolean = false): BlogPost[] => {
   // Vite의 glob import를 사용하여 posts 폴더의 모든 마크다운 파일 가져오기
   // 프로젝트 루트 기준으로 /src/posts/*.md 경로 사용
   const modules = import.meta.glob('/src/posts/*.md', { 
@@ -87,10 +93,20 @@ export const getAllPosts = (): BlogPost[] => {
     return parseMarkdown(content, filename);
   });
   
+  // draft 필터링 (includeDrafts가 false면 published가 true인 것만)
+  const filteredPosts = includeDrafts 
+    ? posts 
+    : posts.filter(post => post.published !== false);
+  
   // 날짜순으로 정렬 (최신순)
-  return posts.sort((a, b) => 
+  return filteredPosts.sort((a, b) => 
     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
+};
+
+// 공개된 포스트만 가져오기 (편의 함수)
+export const getPublishedPosts = (): BlogPost[] => {
+  return getAllPosts(false);
 };
 
 // ID로 포스트 가져오기

@@ -7,6 +7,7 @@ export interface BlogPost {
   updatedAt?: string;
   tags?: string[];
   category?: string;
+  published?: boolean; // true면 공개, false면 draft (기본값: true)
 }
 
 export interface BlogPostListItem {
@@ -16,5 +17,6 @@ export interface BlogPostListItem {
   createdAt: string;
   tags?: string[];
   category?: string;
+  published?: boolean;
 }
 
